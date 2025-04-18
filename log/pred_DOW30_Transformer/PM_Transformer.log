@@ -1,0 +1,2 @@
+2025-04-18 23:15:43,460 - PM_Transformer - INFO - Initializing model with log directory: log\pred_DOW30_Transformer
+2025-04-18 23:15:43,461 - PM_Transformer - INFO - Log file created at log\pred_DOW30_Transformer\PM_Transformer.log

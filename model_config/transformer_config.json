@@ -1,0 +1,39 @@
+{
+    "model": "Transformer",
+    
+    "project_name": "DOW30",
+    "root_path": "data_dir",
+    "data_dict": {
+        "DOW30": {
+            "dataset_name": "DOW",
+            "full_stock_path": "DOW30"
+        },
+        "SSE30": {
+            "dataset_name": "SSE",
+            "full_stock_path": "SSE50"
+        },
+        "NASDAQ100": {
+            "dataset_name": "NAS",
+            "full_stock_path": "NASQ100"
+        }
+    },
+    "seq_len": 60,
+    "prediction_len": 1,
+    "rank_alpha": 1,
+    "batch_size": 32,
+    "num_workers": 1,
+    "learning_rate": 0.001,
+    "train_epochs": 50,
+    "use_multi_gpu": false,
+    "use_gpu": true,
+    "enc_in": 5,
+    "dec_in": 5,
+    "c_out": 1,
+    "d_model": 128,
+    "n_heads": 4,
+    "e_layers": 2,
+    "d_layers": 1,
+    "d_ff": 256,
+    "dropout": 0.05,
+    "activation": "gelu"
+}
