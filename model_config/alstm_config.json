@@ -1,0 +1,42 @@
+{
+    "model": "ALSTM",
+
+    "project_name": "DOW30",
+    "root_path": "data_dir",
+    "data_dict": {
+        "DOW30": {
+            "dataset_name": "DOW",
+            "full_stock_path": "DOW30"
+        },
+        "SSE30": {
+            "dataset_name": "SSE",
+            "full_stock_path": "SSE50"
+        },
+        "NASDAQ100": {
+            "dataset_name": "NAS",
+            "full_stock_path": "NASQ100"
+        }
+    },
+    "seq_len": 20,
+    "prediction_len": 1,
+    "rank_alpha": 3,
+
+    "batch_size": 32,
+    "num_workers": 1,
+    "learning_rate": 0.0001,
+    "train_epochs": 30,
+    "use_multi_gpu": false,
+    "use_gpu": true,
+
+    "model_config": {
+        "input_size": 5,
+        "hidden_size": 32,
+        "num_layers": 1,
+        "dropout": 0.3,
+        "bidirectional": false,
+        "attention": true,
+        "noise_level": 0.02,
+        "d_ff": 64,
+        "c_out": 1
+    }
+}

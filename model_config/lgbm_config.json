@@ -1,0 +1,41 @@
+{
+    "model": "LightGBM",
+
+    "project_name": "DOW30",
+    "root_path": "data_dir",
+    "data_dict": {
+        "DOW30": {
+            "dataset_name": "DOW",
+            "full_stock_path": "DOW30"
+        },
+        "SSE30": {
+            "dataset_name": "SSE",
+            "full_stock_path": "SSE50"
+        },
+        "NASDAQ100": {
+            "dataset_name": "NAS",
+            "full_stock_path": "NASQ100"
+        }
+    },
+
+    "seq_len": 60,
+    "prediction_len": 1,
+    "rank_alpha": 1,
+
+    "batch_size": 32,
+    "num_workers": 1,
+    "use_gpu": true,
+
+    "model_config": {
+        "num_leaves": 31,
+        "max_depth": -1,
+        "learning_rate": 0.1,
+        "n_estimators": 100,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "reg_alpha": 0.0,
+        "reg_lambda": 1.0,
+        "min_child_samples": 20,
+        "early_stopping_rounds": 10
+    }
+}

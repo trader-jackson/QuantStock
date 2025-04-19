@@ -36,7 +36,6 @@
         "dropout": 0.05,
         "bidirectional": true,
         "attention": true,
-        "input_drop": 0.05,
         "noise_level": 0.0,
         "d_ff": 256,
         "c_out": 1

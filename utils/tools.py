@@ -4,22 +4,57 @@ import shortuuid
 from types import SimpleNamespace
 
 
+import math
+
 def adjust_learning_rate(optimizer, epoch, args):
-    # lr = args.learning_rate * (0.2 ** (epoch // 2))
-    if args.lradj=='type1':
-        lr_adjust = {}
+    """
+    args.lradj options
+    ------------------
+    * 'type1'  – step decay: LR × 0.5 every args.adjust_interval epochs
+    * 'type2'  – hard‑coded table
+    * 'cosine' – CosineAnnealing from LR_max → LR_min over args.train_epochs
+                optional linear warm‑up for the first args.warmup epochs
+    """
+
+    lr = None                                 # will hold the new learning‑rate
+
+    # --- type‑1: step decay -------------------------------------------------
+    if args.lradj == 'type1':
         if epoch % args.adjust_interval == 0:
-            lr_adjust = {epoch: args.learning_rate * (0.5 ** ((int(epoch/args.adjust_interval)-1) // 1))}
-    elif args.lradj=='type2':
-        lr_adjust = {
-            2: 5e-5, 4: 1e-5, 6: 5e-6, 8: 1e-6, 
+            k      = (epoch // args.adjust_interval) - 1
+            lr     = args.learning_rate * (0.5 ** max(k, 0))
+
+    # --- type‑2: fixed table -----------------------------------------------
+    elif args.lradj == 'type2':
+        table = {
+            2: 5e-5, 4: 1e-5, 6: 5e-6, 8: 1e-6,
             10: 5e-7, 15: 1e-7, 20: 5e-8
         }
-    if epoch in lr_adjust.keys():
-        lr = lr_adjust[epoch]
+        lr = table.get(epoch, None)
+
+    # --- NEW: cosine schedule ----------------------------------------------
+    elif args.lradj == 'cosine':
+        lr_max   = args.learning_rate           # initial LR
+        lr_min   = getattr(args, "lr_min", 0)   # default 0 – can be set in args
+        T        = args.train_epochs
+        warmup   = getattr(args, "warmup_epochs", 0)
+
+        if epoch < warmup:                      # linear warm‑up
+            lr = lr_max * (epoch + 1) / warmup
+        else:
+            t     = epoch - warmup
+            T_cos = T  - warmup
+            cos_inner = math.pi * t / T_cos
+            lr = lr_min + 0.5 * (lr_max - lr_min) * (1 + math.cos(cos_inner))
+
+    # -----------------------------------------------------------------------
+
+    # If we decided on a new LR, push it into the optimiser
+    if lr is not None:
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
-        print('Updating learning rate to {}'.format(lr))
+        print(f"Updating learning rate to {lr:.6g}")
+
 
 class EarlyStopping:
     def __init__(self, patience=7, verbose=False, delta=0):

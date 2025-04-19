@@ -94,9 +94,9 @@ class Stock_Data():
         boarder2_ = dates.index(self.border_dates[2])
         boarder2  = dates.index(self.border_dates[3])
         boarder3_ = dates.index(self.border_dates[4])
-        boarder3  = dates.index(self.border_dates[5])
+       
         self.boarder_start = [max(boarder1_,self.seq_len), boarder2_, boarder3_]
-        self.boarder_end = [boarder1, boarder2, boarder3]
+        self.boarder_end = [boarder1, boarder2, len(dates)-1]
 
  
         
@@ -143,14 +143,14 @@ class Stock_Data():
 # DatasetStock_PRED class definition (unchanged except for extra output of price)
 # -----------------------------------------------------------------
 class DatasetStock_PRED(Dataset):
-    def __init__(self, stock: Stock_Data, flag='train', feature=config.TEMPORAL_FEATURE):
+    def __init__(self, stock: Stock_Data, flag='train', feature=config.TEMPORAL_FEATURE,techical=config.TECHICAL_INDICATORS):
         super().__init__()
         assert flag in ['train', 'valid', 'test']
         pos = stock.type_map[flag]
         self.start_pos = stock.boarder_start[pos]
         self.end_pos = stock.boarder_end[pos] + 1
         # The length of the temporal features (last portion of the feature dimension)
-        self.feature_len = len(feature)
+        self.feature_len = len(feature)+len(techical)
         self.feature_day_len = stock.seq_len
         self.data = stock.data_all
         self.label = stock.label_all
@@ -210,7 +210,7 @@ def test_stock_data():
         full_stock_path=dataset_dir,
         window_size=seq_len,
         root_path=root_path,
-        prediction_len=1
+        prediction_len=5
     )
     return stock_data
 
@@ -218,7 +218,7 @@ def test_dataset_pred():
     # Create stock_data from test function.
     stock_data = test_stock_data()
     # Create a DatasetStock_PRED instance for training data (adjust type as needed)
-    train_dataset = DatasetStock_PRED(stock_data, flag='train', feature=config.TEMPORAL_FEATURE)
+    train_dataset = DatasetStock_PRED(stock_data, flag='test', feature=config.TEMPORAL_FEATURE)
     print("Train dataset length:", len(train_dataset))
     
     # Get the first sample and print output shapes

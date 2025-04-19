@@ -1,2 +1,13 @@
-2025-04-18 23:15:43,460 - PM_Transformer - INFO - Initializing model with log directory: log\pred_DOW30_Transformer
-2025-04-18 23:15:43,461 - PM_Transformer - INFO - Log file created at log\pred_DOW30_Transformer\PM_Transformer.log
+2025-04-19 20:37:05,414 - PM_Transformer - INFO - Initializing model with log directory: log\pred_DOW30_Transformer
+2025-04-19 20:37:05,415 - PM_Transformer - INFO - Log file created at log\pred_DOW30_Transformer\PM_Transformer.log
+2025-04-19 20:37:09,254 - PM_Transformer - INFO - Starting training for Transformer model
+2025-04-19 20:37:09,256 - PM_Transformer - INFO - Training epochs: 50, Steps per epoch: 77
+2025-04-19 20:39:42,812 - PM_Transformer - INFO - Epoch 1: Train Loss: 0.0883383, Valid Loss: 0.0017050, Test Loss: 0.0018502
+2025-04-19 20:39:42,815 - PM_Transformer - INFO - mirr_top1/train: 0.0030489321782967292
+2025-04-19 20:39:42,815 - PM_Transformer - INFO - rank_ic/train: -0.0076045882438456934
+2025-04-19 20:39:42,816 - PM_Transformer - INFO - mirr_top1/valid: 0.0022016080177348595
+2025-04-19 20:39:42,817 - PM_Transformer - INFO - rank_ic/valid: -0.006717853286147096
+2025-04-19 20:39:42,817 - PM_Transformer - INFO - mirr_top1/test: -0.0011788445214430492
+2025-04-19 20:39:42,818 - PM_Transformer - INFO - rank_ic/test: -0.007828269673424676
+2025-04-19 20:39:42,842 - PM_Transformer - INFO - Model checkpoint saved: ./checkpoints/transformer\checkpoint_1.pth
+2025-04-19 20:39:42,843 - PM_Transformer - INFO - New best model at epoch 1 with validation loss: 0.0017050
